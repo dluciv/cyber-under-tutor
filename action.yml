@@ -1,0 +1,15 @@
+name: 'Кибердядька'
+description: 'Проверяет соотвествие стиля кодирования PEP-8'
+inputs:
+  whom-to-greet:  # id of input
+    description: 'Кому привет?'
+    required: true
+    default: 'Я'
+outputs:
+  time: # id of output
+    description: 'Когда привет'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.whom-to-greet }}
