@@ -1,6 +1,6 @@
 # Кибердядька
 
-(Cyber Under-Tutor)
+*(Yet another custom)* Cyber Under-Tutor
 
 ![Staredad](staredad.jpg)
 
