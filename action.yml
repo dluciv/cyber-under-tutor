@@ -1,5 +1,5 @@
 name: 'Кибердядька'
-description: 'Проверяет соотвествие стиля кодирования PEP-8'
+description: 'GitHub action to check code styling'
 inputs:
   whom-to-greet:  # id of input
     description: 'Кому привет?'
