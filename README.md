@@ -1,2 +1,5 @@
-# cyber-under-tutor
-Кибердядька
+# Кибердядька
+
+![Staredad](staredad.jpg)
+
+GitHub action для проверки стиля
