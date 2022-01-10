@@ -1,15 +1,17 @@
 name: 'Кибердядька'
 description: 'GitHub action to check code styling'
 inputs:
-  whom-to-greet:  # id of input
-    description: 'Кому привет?'
+  lines-per-msg:  # id of input
+    description: 'На сколько строк разрешено одно сообщение'
     required: true
-    default: 'Я'
+    default: '100'
 outputs:
-  time: # id of output
-    description: 'Когда привет'
+  c-tot-msgs:
+    description: 'Сколько сообщений по C'
+  c-tot-lines:
+    description: 'Сколько строк на C'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.whom-to-greet }}
+    - ${{ inputs.lines-per-msg }}
