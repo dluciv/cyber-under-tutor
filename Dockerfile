@@ -5,7 +5,7 @@ FROM alpine:latest
 COPY entrypoint.sh /entrypoint.sh
 COPY c-check.rb /c-check.rb
 
-RUN apk add cppcheck bc grep ruby
+RUN apk add cppcheck bc grep ruby git
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
 ENTRYPOINT ["/entrypoint.sh"]

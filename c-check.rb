@@ -1,4 +1,4 @@
-#!/usr/bin/env -S ruby
+#!/usr/bin/ruby
 # encoding: UTF-8
 
 require 'yaml'
