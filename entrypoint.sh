@@ -18,7 +18,7 @@ echo $CCLOG
 echo cppcheck status:
 echo $CCRES
 echo '==========================='
-echo Penalty: $TOT_MSGS / $TOT_LINES = $(( 1.0 * $TOT_MSGS / $TOT_LINES ))
+echo Penalty: $TOT_MSGS / $TOT_LINES
 
 echo "::set-output name=c-tot-lines::$TOT_LINES"
 echo "::set-output name=c-tot-msgs::$TOT_MSGS"
