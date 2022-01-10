@@ -37,9 +37,9 @@ git config user.name "Кибердядька"
 git pull origin cyber-under-tutor
 git checkout cyber-under-tutor
 
-echo $CCLOG | $(dirname "$0")/c-check.rb $SCORE quality-check.yml
+echo $CCLOG | $(dirname "$0")/c-check.py $SCORE quality-check
 
-git add quality-check.yml
+git add quality-check.yml quality-check.svg
 git commit -m "Кибердядька сообщает"
 git push origin cyber-under-tutor
 # -----------------------------
