@@ -32,14 +32,15 @@ echo "::set-output name=c-tot-msgs::$TOT_MSGS"
 echo "::set-output name=c-tot-score::$SCORE"
 
 # -----------------------------
-BRANCH_NAME=cyber-under-tutor
-git config --global user.email "CYBER@DRDbKA.github.com"
-git config --global user.name "Кибердядька"
-git checkout $BRANCH_NAME
 echo $CCLOG | $(dirname "$0")/c-check.rb $SCORE quality-check.yml
-git add quality-check.yml
-git commit -m "Кибердядька сообщает"
-git push origin $BRANCH_NAME
+
+          git config user.email "CYBER@DRDbKA.github.com"
+          git config user.name "Кибердядька"
+          git pull origin cyber-under-tutor
+          git checkout cyber-under-tutor
+          git add quality-check.yml
+          git commit -m "Кибердядька сообщает"
+          git push origin cyber-under-tutor
 # -----------------------------
 
 if [[ $CCRES == 0 ]]
