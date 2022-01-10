@@ -33,8 +33,7 @@ echo "::set-output name=c-tot-score::$SCORE"
 
 if [[ $CCRES == 0 ]]
 then
-  echo "$SCORE > 0" | bc
-  if [ $? -eq 0 ]
+  if [ $(echo "$SCORE > 0" | bc) -eq 0 ]
   then
     exit 1
   else
