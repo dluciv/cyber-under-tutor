@@ -12,7 +12,7 @@ CCRES=$?
 
 echo $CCLOG |  wc -l
 
-TOT_MSGS=$(echo $CCLOG | awk '/<\/(error|warning|style)>/ {count++} END{print count}')
+TOT_MSGS=$(echo $CCLOG | egrep -o '</(error|warning|style)>' | wc -l | xargs)
 
 PENALTY=$(echo "scale=2; $LINES_PER_MSG * $TOT_MSGS / $TOT_LINES" | bc)
 SCORE=$(echo "scale=2; 1 - $PENALTY" | bc)
