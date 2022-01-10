@@ -3,8 +3,6 @@
 
 require 'yaml'
 
-p ARGV
-
 score = ARGV[0].to_f
 cclog = STDIN.read
 

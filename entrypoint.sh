@@ -32,6 +32,8 @@ echo "::set-output name=c-tot-msgs::$TOT_MSGS"
 echo "::set-output name=c-tot-score::$SCORE"
 
 # -----------------------------
+git config --global user.email "CYBER@DRDbKA.github.com"
+git config --global user.name "Кибердядька"
 git switch cyber-under-tutor
 echo $CCLOG | $(dirname "$0")/c-check.rb $SCORE quality-check.yml
 git commit -m "Кибердядька сообщает"
