@@ -31,6 +31,13 @@ echo "::set-output name=c-tot-lines::$TOT_LINES"
 echo "::set-output name=c-tot-msgs::$TOT_MSGS"
 echo "::set-output name=c-tot-score::$SCORE"
 
+# -----------------------------
+git switch cyber-under-tutor
+echo $CCLOG | $(dirname "$0")/c-check.rb $SCORE quality-check.yml
+git commit -m "Кибердядька сообщает"
+git push origin cyber-under-tutor
+# -----------------------------
+
 if [[ $CCRES == 0 ]]
 then
   if [ $(echo "$SCORE > 0" | bc) -eq 0 ]
