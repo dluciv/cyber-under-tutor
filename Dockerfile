@@ -5,7 +5,7 @@ FROM alpine:latest
 COPY entrypoint.sh /entrypoint.sh
 COPY c-check.py /c-check.py
 
-RUN apk add cppcheck bc grep ruby python3 py3-pip \
+RUN apk add git cppcheck bc grep ruby python3 py3-pip \
  && pip3 install pyyaml anybadge
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
