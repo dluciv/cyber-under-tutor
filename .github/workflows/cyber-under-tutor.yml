@@ -19,7 +19,7 @@ on:
         value: ${{ jobs.check-and-report.outputs.check-tot-score }}
 jobs:
   check-and-report:
-    name: 'Кибердядька проверяет и докладывает'
+    name: 'Кибердядька докладывает'
     runs-on: ubuntu-latest
     outputs:
       check-tot-msgs: ${{ steps.cybercheck.outputs.tot-msgs }}
@@ -34,12 +34,20 @@ jobs:
         with:
           lines-per-msg: ${{ inputs.lines-per-msg }}
       - name: 'Отчёт'
-        uses: EndBug/add-and-commit@v7.5.0
-        with:
-          add: 'quality-check.*'
-          author_name: 'Кибердядька'
-          author_email: CYBER@DRDbKA.github.com
-          pull: --rebase
-          branch: cyber-under-tutor
-          branch_mode: create
-          message: 'Кибердядька докладывает'
+        run: |
+          UNDERTUTOR_BRANCH=cyber-under-tutor
+          MAIN_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          git config pull.rebase false
+          git config user.email "CYBER@DRDbKA.github.com"
+          git config user.name "Кибердядька"
+
+          git stash
+          git pull origin $UNDERTUTOR_BRANCH
+          git switch $UNDERTUTOR_BRANCH
+
+          git stash pop
+
+          git add quality-check.yml quality-check.svg
+          git commit -m "Кибердядька сообщает"
+          git push origin $UNDERTUTOR_BRANCH
+          git switch $MAIN_BRANCH
