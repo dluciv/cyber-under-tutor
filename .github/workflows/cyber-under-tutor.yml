@@ -33,19 +33,19 @@ jobs:
         uses: dluciv/cyber-under-tutor@main
         with:
           lines-per-msg: ${{ inputs.lines-per-msg }}
-      - name: 'Отчёт'
+      - name: 'Сохранение отчёта'
         run: |
           mv quality-check.yml quality-check.svg $TMPDIR
-
-          UNDERTUTOR_BRANCH=cyber-under-tutor
-
+      - name: 'Получение ветви отчёта'
+        uses: actions/checkout@v2
+        ref: 'cyber-under-tutor'
+      - name: 'Публикация отчёта'
+        run: |
           git config user.email "CYBER@DRDbKA.github.com"
           git config user.name "Кибердядька"
-
-          git switch --force -c $UNDERTUTOR_BRANCH origin/$UNDERTUTOR_BRANCH
 
           mv $TMPDIR/quality-check.yml $TMPDIR/quality-check.svg .
 
           git add quality-check.yml quality-check.svg
           git commit -m "Кибердядька сообщает"
-          git push origin $UNDERTUTOR_BRANCH
+          git push
