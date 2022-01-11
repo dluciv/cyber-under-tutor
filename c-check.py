@@ -8,7 +8,11 @@ from xml.dom.minidom import parseString
 cc_lines = int(sys.argv[2])
 cc_lines_per_msg = int(sys.argv[3])
 
-cc_xml = sys.stdin.read()
+with open(sys.argv[4], encoding='utf-8') as xf:
+  cc_xml = xf.read()
+with open(sys.argv[5], encoding='utf-8') as lf:
+  cc_log = lf.read()
+
 cc_dom = parseString(cc_xml)
 cc_msgs = sum(len(cc_dom.getElementsByTagName(t)) for t in ['error', 'warning', 'style', 'portability'])
 
@@ -20,8 +24,9 @@ tot_lines = cc_lines
 
 report = {
   'tot_score': tot_score,
-  'cc_messages': cc_msgs
-  'cc_report': cc_xml
+  'cc_messages': cc_msgs,
+  'cc_report': cc_log,
+  'cc_xml': cc_xml
 }
 
 with open(sys.argv[1] + '.yml', 'w', encoding='utf-8' ) as y:

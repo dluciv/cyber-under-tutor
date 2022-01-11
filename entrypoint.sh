@@ -8,13 +8,16 @@ count_lines() {
   find . -type f -name $1 -exec wc -l {} \;
 }
 
+CPPCHECK_OPTS=-q --enable=warning,style,portability,missingInclude
+
 CC_LINES=$(count_lines '*.c*' | awk '{sum+=$1;} END{print sum;}')
-CCLOG=$(cppcheck -q --enable=warning,style,portability,missingInclude --xml . 2>&1)
+cppcheck $CPPCHECK_OPTS       --output-file=cppcheck.log .
+cppcheck $CPPCHECK_OPTS --xml --output-file=cppcheck.xml .
 CCRES=$?
 
 echo '==========================='
 echo cppcheck report:
-echo $CCLOG
+cat  cppcheck.log
 echo cppcheck status:
 echo $CCRES
 echo '==========================='
@@ -27,7 +30,7 @@ git config user.name "Кибердядька"
 git pull origin $UNDERTUTOR_BRANCH
 git switch $UNDERTUTOR_BRANCH
 
-echo $CCLOG | $(dirname "$0")/c-check.py quality-check $CC_LINES $LINES_PER_MSG
+echo $CCXML | $(dirname "$0")/c-check.py quality-check $CC_LINES $LINES_PER_MSG cppcheck.xml cppcheck.log
 
 git add quality-check.yml quality-check.svg
 git commit -m "Кибердядька сообщает"
