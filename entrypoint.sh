@@ -1,5 +1,7 @@
 #!/bin/sh -l
 
+echo "::group::Кибердядька работает"
+
 UNDERTUTOR_BRANCH=cyber-under-tutor
 
 LINES_PER_MSG=$1
@@ -14,13 +16,6 @@ CC_LINES=$(count_lines '*.c*' | awk '{sum+=$1;} END{print sum;}')
 cppcheck $CPPCHECK_OPTS       --output-file=cppcheck.log .
 cppcheck $CPPCHECK_OPTS --xml --output-file=cppcheck.xml .
 CCRES=$?
-
-echo '==========================='
-echo cppcheck report:
-cat  cppcheck.log
-echo cppcheck status:
-echo $CCRES
-echo '==========================='
 
 # -----------------------------
 MAIN_BRANCH=$(git rev-parse --abbrev-ref HEAD)
@@ -37,3 +32,12 @@ git commit -m "Кибердядька сообщает"
 git push origin $UNDERTUTOR_BRANCH
 git switch $MAIN_BRANCH
 # -----------------------------
+
+echo "::endgroup::"
+
+echo "::group::Кибердядька сообщает"
+echo cppcheck status:
+echo $CCRES
+echo cppcheck report:
+cat  cppcheck.log
+echo "::endgroup::"

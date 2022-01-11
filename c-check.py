@@ -36,10 +36,13 @@ score_promille = str(round(tot_score * 100))
 badge = anybadge.Badge('Кибердядька', score_promille, thresholds={0: 'red', 50: 'orange', 90: 'yellow', sys.maxsize: 'green'}, value_suffix='%', num_padding_chars=1)
 badge.write_badge(sys.argv[1] + '.svg', overwrite=True)
 
-print(f"Messages: {tot_msgs}")
-print(f"Penalty: {1-tot_score}")
-print(f"Scope:   {tot_score}")
-
 print(f"::set-output name=tot-lines::{tot_lines}")
 print(f"::set-output name=tot-msgs::{tot_msgs}")
 print(f"::set-output name=tot-score::{tot_score}")
+
+print("::group::Кибердядька подводит итоги")
+logcommand = 'notice' if score >= 0.5 else 'warning'
+print(f"::notice ::Messages: {tot_msgs}")
+print(f"::{logcommand} ::Penalty: {1-tot_score}")
+print(f"::{logcommand} ::Scope:   {tot_score}")
+print("::endgroup::")
