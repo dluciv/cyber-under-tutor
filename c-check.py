@@ -44,5 +44,5 @@ print("::group::Кибердядька подводит итоги")
 logcommand = 'notice' if tot_score >= 0.5 else 'warning'
 print(f"::notice ::Messages: {tot_msgs}")
 print(f"::{logcommand} ::Penalty: {1-tot_score}")
-print(f"::{logcommand} ::Scope:   {tot_score}")
+print(f"::{logcommand} ::Score:   {tot_score}")
 print("::endgroup::")
