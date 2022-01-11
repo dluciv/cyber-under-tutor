@@ -4,8 +4,6 @@ UNDERTUTOR_BRANCH=cyber-under-tutor
 
 LINES_PER_MSG=$1
 
-echo "Parameters: $*"
-
 count_lines() {
   find . -type f -name $1 -exec wc -l {} \;
 }

@@ -5,8 +5,6 @@ import anybadge
 import sys
 from xml.dom.minidom import parseString
 
-print(repr(sys.argv))
-
 cc_lines = int(sys.argv[2])
 cc_lines_per_msg = int(sys.argv[3])
 
@@ -22,6 +20,7 @@ tot_lines = cc_lines
 
 report = {
   'tot_score': tot_score,
+  'cc_messages': cc_msgs
   'cc_report': cc_xml
 }
 
@@ -32,6 +31,7 @@ score_promille = str(round(tot_score * 100))
 badge = anybadge.Badge('Кибердядька', score_promille, thresholds={0: 'red', 50: 'orange', 90: 'yellow', sys.maxsize: 'green'}, value_suffix='%', num_padding_chars=1)
 badge.write_badge(sys.argv[1] + '.svg', overwrite=True)
 
+print(f"Messages: {tot_msgs}")
 print(f"Penalty: {1-tot_score}")
 print(f"Scope:   {tot_score}")
 
