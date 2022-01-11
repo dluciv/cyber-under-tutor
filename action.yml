@@ -6,11 +6,11 @@ inputs:
     required: true
     default: '100'
 outputs:
-  c-tot-msgs:
+  tot-msgs:
     description: 'Сколько сообщений по C'
-  c-tot-lines:
+  tot-lines:
     description: 'Сколько строк на C'
-  c-tot-score:
+  tot-score:
     description: 'Сколько очков за C'
 runs:
   using: 'docker'

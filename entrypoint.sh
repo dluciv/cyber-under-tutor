@@ -1,21 +1,15 @@
 #!/bin/sh -l
 
+UNDERTUTOR_BRANCH=cyber-under-tutor
+
 LINES_PER_MSG=$1
 count_lines() {
-  find . -type f -name '*.c*' -exec wc -l {} \;
+  find . -type f -name $1 -exec wc -l {} \;
 }
 
-TOT_LINES=$(count_lines | awk '{sum+=$1;} END{print sum;}')
-
+CC_LINES=$(count_lines '*.c*' | awk '{sum+=$1;} END{print sum;}')
 CCLOG=$(cppcheck -q --xml . 2>&1 | dos2unix)
 CCRES=$?
-
-echo $CCLOG |  wc -l
-
-TOT_MSGS=$(echo $CCLOG | egrep -o '</(error|warning|style)>' | wc -l | xargs)
-
-PENALTY=$(echo "scale=2; $LINES_PER_MSG * $TOT_MSGS / $TOT_LINES" | bc)
-SCORE=$(echo "scale=2; 1 - $PENALTY" | bc)
 
 echo '==========================='
 echo cppcheck report:
@@ -24,37 +18,18 @@ echo cppcheck status:
 echo $CCRES
 echo '==========================='
 
-echo Penalty: $TOT_MSGS \* $LINES_PER_MSG / $TOT_LINES is $PENALTY
-echo Score: $SCORE
-
-echo "::set-output name=c-tot-lines::$TOT_LINES"
-echo "::set-output name=c-tot-msgs::$TOT_MSGS"
-echo "::set-output name=c-tot-score::$SCORE"
-
 # -----------------------------
 MAIN_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 git config pull.rebase false
 git config user.email "CYBER@DRDbKA.github.com"
 git config user.name "Кибердядька"
-git pull --all
-git switch cyber-under-tutor
+git switch $UNDERTUTOR_BRANCH
+git pull origin $UNDERTUTOR_BRANCH
 
-echo $CCLOG | $(dirname "$0")/c-check.py $SCORE quality-check
+echo $CCLOG | $(dirname "$0")/c-check.py quality-check $CC_LINES $LINES_PER_MSG
 
 git add quality-check.yml quality-check.svg
 git commit -m "Кибердядька сообщает"
-git push origin cyber-under-tutor
+git push origin $UNDERTUTOR_BRANCH
 git switch $MAIN_BRANCH
 # -----------------------------
-
-if [[ $CCRES == 0 ]]
-then
-  if [ $(echo "$SCORE > 0" | bc) -eq 0 ]
-  then
-    exit 1
-  else
-    exit 0
-  fi
-else
-  exit $CCRES
-fi
