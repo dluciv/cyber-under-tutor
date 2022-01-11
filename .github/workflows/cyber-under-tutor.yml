@@ -18,30 +18,21 @@ on:
         description: 'Качество кода'
         value: ${{ jobs.check.outputs.check-tot-score }}
 jobs:
-  checkout:
-    name: 'Получение репозитория'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
   check:
-    needs: checkout
-    name: 'Проверка'
     runs-on: ubuntu-latest
     outputs:
       check-tot-msgs: ${{ steps.cybercheck.outputs.tot-msgs }}
       check-tot-lines: ${{ steps.cybercheck.outputs.tot-lines }}
       check-tot-score: ${{ steps.cybercheck.outputs.tot-score }}
     steps:
+      - uses: actions/checkout@v2
+        name: 'Получение репозитория'
       - id: cybercheck
+        name: 'Проверка'
         uses: dluciv/cyber-under-tutor@main
         with:
           lines-per-msg: ${{ inputs.lines-per-msg }}
-  report:
-    name: 'Отчёт'
-    needs: [check]
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Add & Commit'
+      - name: 'Отчёт'
         uses: EndBug/add-and-commit@v7.5.0
         with:
           add: 'quality-check.*'
