@@ -10,7 +10,7 @@ count_lines() {
   find . -type f -name $1 -exec wc -l {} \;
 }
 
-CPPCHECK_OPTS=-q --enable=warning,style,portability,missingInclude
+CPPCHECK_OPTS='-q --enable=warning,style,portability,missingInclude'
 
 CC_LINES=$(count_lines '*.c*' | awk '{sum+=$1;} END{print sum;}')
 cppcheck $CPPCHECK_OPTS       --output-file=cppcheck.log .
