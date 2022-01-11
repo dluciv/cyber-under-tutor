@@ -11,15 +11,12 @@ on:
       tot-msgs:
         description: 'Сколько получено сообщений'
         value: ${{ jobs.check.outputs.check-tot-msgs }}
-        type: number
       tot-lines:
         description: 'Сколько проверено строк'
         value: ${{ jobs.check.outputs.check-tot-lines }}
-        type: number
       tot-score:
         description: 'Качество кода'
         value: ${{ jobs.check.outputs.check-tot-score }}
-        type: number
 jobs:
   check:
     name: 'Проверка'
