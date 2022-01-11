@@ -35,6 +35,8 @@ jobs:
           lines-per-msg: ${{ inputs.lines-per-msg }}
       - name: 'Отчёт'
         run: |
+          pwd
+          ls -la
           mv quality-check.yml quality-check.svg $TMPDIR
 
           UNDERTUTOR_BRANCH=cyber-under-tutor
