@@ -35,7 +35,7 @@ jobs:
           lines-per-msg: ${{ inputs.lines-per-msg }}
       - name: 'Сохранение отчёта'
         run: |
-          mv quality-check.yml quality-check.svg $TMPDIR
+          mv quality-check.yml quality-check.svg /tmp
       - name: 'Получение ветви отчёта'
         uses: actions/checkout@v2
         with:
@@ -45,7 +45,7 @@ jobs:
           git config user.email "CYBER@DRDbKA.github.com"
           git config user.name "Кибердядька"
 
-          mv $TMPDIR/quality-check.yml $TMPDIR/quality-check.svg .
+          mv /tmp/quality-check.yml /tmp/quality-check.svg .
 
           git add quality-check.yml quality-check.svg
           git commit -m "Кибердядька сообщает"
