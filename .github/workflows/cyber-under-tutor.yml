@@ -35,7 +35,6 @@ jobs:
           lines-per-msg: ${{ inputs.lines-per-msg }}
       - name: 'Сохранение отчёта'
         run: |
-          echo $TMPDIR $HOME
           mv quality-check.* $HOME
       - name: 'Получение ветви отчёта'
         uses: actions/checkout@v2
