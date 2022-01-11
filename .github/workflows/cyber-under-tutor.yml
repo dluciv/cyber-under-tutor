@@ -44,8 +44,8 @@ jobs:
           git config user.email "CYBER@DRDbKA.github.com"
           git config user.name "Кибердядька"
 
-          git pull origin $UNDERTUTOR_BRANCH
-          git switch $UNDERTUTOR_BRANCH
+          git switch --discard-changes $UNDERTUTOR_BRANCH
+          git pull --rebase
 
           mv $TMPDIR/quality-check.yml $TMPDIR/quality-check.svg .
 
