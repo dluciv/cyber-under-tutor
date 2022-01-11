@@ -32,6 +32,7 @@ echo "::set-output name=c-tot-msgs::$TOT_MSGS"
 echo "::set-output name=c-tot-score::$SCORE"
 
 # -----------------------------
+git config pull.rebase false
 git config user.email "CYBER@DRDbKA.github.com"
 git config user.name "Кибердядька"
 git pull origin cyber-under-tutor
