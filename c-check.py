@@ -5,6 +5,8 @@ import anybadge
 import sys
 from xml.dom.minidom import parseString
 
+print(repr(sys.argv))
+
 cc_lines = int(sys.argv[2])
 cc_lines_per_msg = int(sys.argv[3])
 

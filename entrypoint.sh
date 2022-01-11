@@ -23,8 +23,8 @@ MAIN_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 git config pull.rebase false
 git config user.email "CYBER@DRDbKA.github.com"
 git config user.name "Кибердядька"
-git switch $UNDERTUTOR_BRANCH
 git pull origin $UNDERTUTOR_BRANCH
+git switch $UNDERTUTOR_BRANCH
 
 echo $CCLOG | $(dirname "$0")/c-check.py quality-check $CC_LINES $LINES_PER_MSG
 
