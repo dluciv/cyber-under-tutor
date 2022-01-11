@@ -10,7 +10,7 @@ cc_lines_per_msg = int(sys.argv[3])
 
 cc_xml = sys.stdin.read()
 cc_dom = parseString(cc_xml)
-cc_msgs = len(cc_dom.getElementsByTagName('error')) + len(cc_dom.getElementsByTagName('warning')) + len(cc_dom.getElementsByTagName('style'))
+cc_msgs = sum(len(cc_dom.getElementsByTagName(t)) for t in ['error', 'warning', 'style', 'portability'])
 
 cc_score = 1.0 - cc_msgs * cc_lines_per_msg / max(cc_lines, 1)
 

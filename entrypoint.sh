@@ -8,7 +8,7 @@ count_lines() {
 }
 
 CC_LINES=$(count_lines '*.c*' | awk '{sum+=$1;} END{print sum;}')
-CCLOG=$(cppcheck -q --xml . 2>&1 | dos2unix)
+CCLOG=$(cppcheck -q --enable=error,warning,style,portability,missingInclude --xml . 2>&1)
 CCRES=$?
 
 echo '==========================='
