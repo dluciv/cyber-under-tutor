@@ -41,7 +41,7 @@ print(f"::set-output name=tot-msgs::{tot_msgs}")
 print(f"::set-output name=tot-score::{tot_score}")
 
 print("::group::Кибердядька подводит итоги")
-logcommand = 'notice' if score >= 0.5 else 'warning'
+logcommand = 'notice' if tot_score >= 0.5 else 'warning'
 print(f"::notice ::Messages: {tot_msgs}")
 print(f"::{logcommand} ::Penalty: {1-tot_score}")
 print(f"::{logcommand} ::Scope:   {tot_score}")

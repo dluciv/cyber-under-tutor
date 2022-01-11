@@ -25,7 +25,11 @@ git config user.name "Кибердядька"
 git pull origin $UNDERTUTOR_BRANCH
 git switch $UNDERTUTOR_BRANCH
 
+echo "::endgroup::"
+
 echo $CCXML | $(dirname "$0")/c-check.py quality-check $CC_LINES $LINES_PER_MSG cppcheck.xml cppcheck.log
+
+echo "::group::Кибердядька работает"
 
 git add quality-check.yml quality-check.svg
 git commit -m "Кибердядька сообщает"
