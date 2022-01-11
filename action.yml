@@ -1,4 +1,4 @@
-name: 'Кибердядька'
+name: 'Отчёт Кибердядьки'
 description: 'GitHub action to check code styling'
 inputs:
   lines-per-msg:  # id of input
@@ -7,11 +7,11 @@ inputs:
     default: 200
 outputs:
   tot-msgs:
-    description: 'Сколько сообщений по C'
+    description: 'Сколько получено сообщений'
   tot-lines:
-    description: 'Сколько строк на C'
+    description: 'Сколько проверено строк'
   tot-score:
-    description: 'Сколько очков за C'
+    description: 'Качество кода'
 runs:
   using: 'docker'
   image: 'Dockerfile'

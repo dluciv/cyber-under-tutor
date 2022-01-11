@@ -1,0 +1,45 @@
+name: 'Отчёт и бэйдж Кибердядьки'
+on:
+  workflow_call:
+    inputs:
+      lines-per-msg:  # id of input
+        description: 'На сколько строк разрешено одно сообщение'
+        required: true
+        default: 200
+    outputs:
+      tot-msgs:
+        description: 'Сколько получено сообщений'
+        value: ${{ jobs.check.outputs.check-tot-msgs }}
+      tot-lines:
+        description: 'Сколько проверено строк'
+        value: ${{ jobs.check.outputs.check-tot-lines }}
+      tot-score:
+        description: 'Качество кода'
+        value: ${{ jobs.check.outputs.check-tot-score }}
+    jobs:
+      check:
+        name: 'Проверка'
+        runs-on: ubuntu-latest
+        outputs:
+          check-tot-msgs: ${{ steps.cybercheck.outputs.tot-msgs }}
+          check-tot-lines: ${{ steps.cybercheck.outputs.tot-lines }}
+          check-tot-score: ${{ steps.cybercheck.outputs.tot-score }}
+        steps:
+          - id: cybercheck
+            uses: dluciv/cyber-under-tutor@main
+            with:
+              lines-per-msg: ${{ inputs.lines-per-msg }}
+      report:
+        name: 'Отчёт'
+        needs: [check]
+        runs-on: ubuntu-latest
+        steps:
+          - name: 'Add & Commit'
+            uses: EndBug/add-and-commit@v7.5.0
+            with:
+              add: ['quality-check.yml', 'quality-check.svg']
+              author_name: 'Кибердядька'
+              author_email: CYBER@DRDbKA.github.com
+              branch: cyber-under-tutor
+              branch_mode: create
+              message: 'Кибердядька сообщает'
