@@ -18,7 +18,11 @@ on:
         description: 'Качество кода'
         value: ${{ jobs.check.outputs.check-tot-score }}
 jobs:
+  checkout:
+    name: 'Получение репозитория'
+    uses: actions/checkout@v2
   check:
+    needs: checkout
     name: 'Проверка'
     runs-on: ubuntu-latest
     outputs:
