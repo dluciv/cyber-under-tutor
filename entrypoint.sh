@@ -32,17 +32,19 @@ echo "::set-output name=c-tot-msgs::$TOT_MSGS"
 echo "::set-output name=c-tot-score::$SCORE"
 
 # -----------------------------
+MAIN_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 git config pull.rebase false
 git config user.email "CYBER@DRDbKA.github.com"
 git config user.name "Кибердядька"
-git pull origin cyber-under-tutor
-git checkout cyber-under-tutor
+git pull --all
+git switch cyber-under-tutor
 
 echo $CCLOG | $(dirname "$0")/c-check.py $SCORE quality-check
 
 git add quality-check.yml quality-check.svg
 git commit -m "Кибердядька сообщает"
 git push origin cyber-under-tutor
+git switch $MAIN_BRANCH
 # -----------------------------
 
 if [[ $CCRES == 0 ]]
