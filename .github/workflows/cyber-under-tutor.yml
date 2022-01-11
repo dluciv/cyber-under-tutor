@@ -39,6 +39,7 @@ jobs:
           add: 'quality-check.*'
           author_name: 'Кибердядька'
           author_email: CYBER@DRDbKA.github.com
+          pull: --rebase
           branch: cyber-under-tutor
           branch_mode: create
           message: 'Кибердядька докладывает'
