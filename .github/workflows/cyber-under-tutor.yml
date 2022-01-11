@@ -10,15 +10,16 @@ on:
     outputs:
       tot-msgs:
         description: 'Сколько получено сообщений'
-        value: ${{ jobs.check.outputs.check-tot-msgs }}
+        value: ${{ jobs.check-and-report.outputs.check-tot-msgs }}
       tot-lines:
         description: 'Сколько проверено строк'
-        value: ${{ jobs.check.outputs.check-tot-lines }}
+        value: ${{ jobs.check-and-report.outputs.check-tot-lines }}
       tot-score:
         description: 'Качество кода'
-        value: ${{ jobs.check.outputs.check-tot-score }}
+        value: ${{ jobs.check-and-report.outputs.check-tot-score }}
 jobs:
-  check:
+  check-and-report:
+    name: 'Кибердядька проверяет и докладывает'
     runs-on: ubuntu-latest
     outputs:
       check-tot-msgs: ${{ steps.cybercheck.outputs.tot-msgs }}
@@ -40,4 +41,4 @@ jobs:
           author_email: CYBER@DRDbKA.github.com
           branch: cyber-under-tutor
           branch_mode: create
-          message: 'Кибердядька сообщает'
+          message: 'Кибердядька докладывает'
