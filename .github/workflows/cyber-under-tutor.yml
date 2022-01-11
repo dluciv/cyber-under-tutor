@@ -38,7 +38,8 @@ jobs:
           mv quality-check.yml quality-check.svg $TMPDIR
       - name: 'Получение ветви отчёта'
         uses: actions/checkout@v2
-        ref: 'cyber-under-tutor'
+        with:
+          ref: 'cyber-under-tutor'
       - name: 'Публикация отчёта'
         run: |
           git config user.email "CYBER@DRDbKA.github.com"
