@@ -35,17 +35,19 @@ jobs:
           lines-per-msg: ${{ inputs.lines-per-msg }}
       - name: 'Отчёт'
         run: |
+          mv quality-check.yml quality-check.svg $TMPDIR
+
           UNDERTUTOR_BRANCH=cyber-under-tutor
           MAIN_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
           git config pull.rebase false
           git config user.email "CYBER@DRDbKA.github.com"
           git config user.name "Кибердядька"
 
-          git stash
           git pull origin $UNDERTUTOR_BRANCH
           git switch $UNDERTUTOR_BRANCH
 
-          git stash pop
+          mv $TMPDIR/quality-check.yml $TMPDIR/quality-check.svg .
 
           git add quality-check.yml quality-check.svg
           git commit -m "Кибердядька сообщает"
