@@ -4,7 +4,6 @@ inputs:
   lines-per-msg:  # id of input
     description: 'На сколько строк разрешено одно сообщение'
     required: true
-    default: '100'
 outputs:
   tot-msgs:
     description: 'Сколько сообщений по C'
