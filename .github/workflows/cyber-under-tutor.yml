@@ -20,7 +20,8 @@ on:
 jobs:
   checkout:
     name: 'Получение репозитория'
-    uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
   check:
     needs: checkout
     name: 'Проверка'
