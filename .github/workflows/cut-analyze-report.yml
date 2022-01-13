@@ -63,5 +63,9 @@ jobs:
 
           git add quality-check.*
 
-          git commit -m "Кибердядька сообщает"
-          git push
+          if git diff --quiet; then
+            echo "::notice ::No changes"
+          else
+            git commit -m "Кибердядька сообщает"
+            git push
+          fi
