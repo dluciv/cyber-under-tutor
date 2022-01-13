@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import yaml
-import anybadge
 import sys
 from xml.dom.minidom import parseString
 
@@ -31,10 +30,6 @@ report = {
 
 with open(sys.argv[1] + '.yml', 'w', encoding='utf-8' ) as y:
   yaml.dump(report, y)
-
-score_promille = str(round(tot_score * 100))
-badge = anybadge.Badge('Кибердядька', score_promille, thresholds={0: 'red', 50: 'orange', 90: 'yellow', sys.maxsize: 'green'}, value_suffix='%', num_padding_chars=1)
-badge.write_badge(sys.argv[1] + '.svg', overwrite=True)
 
 print(f"::set-output name=tot-lines::{tot_lines}")
 print(f"::set-output name=tot-msgs::{tot_msgs}")
