@@ -59,7 +59,7 @@ jobs:
 
           SCORE_PERCENT=$(echo "scale=0; ${{ needs.analyze.outputs.check-tot-score }}/0.01" | bc)
           echo "::notice ::Score: ${SCORE_PERCENT}%"
-          anybadge -l 'Кибердядька' -d 1 -v $SCORE_PERCENT -s '%' -f quality-check.svg 0=red 50=orange 75=yellow 1000=green
+          anybadge -l 'Кибердядька' -d 1 -v $SCORE_PERCENT -s '%' -o -f quality-check.svg -u 0=red 50=orange 75=yellow 100=green
 
           git add quality-check.*
 
