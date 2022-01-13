@@ -2,10 +2,6 @@ name: 'Отчёт и бэйдж Кибердядьки'
 on:
   workflow_call:
     inputs:
-      tot-score:
-        description: 'Общее качество'
-        required: true
-        type: number
 
 jobs:
   report:
