@@ -1,0 +1,34 @@
+name: 'Отчёт и бэйдж Кибердядьки'
+on:
+  workflow_call:
+    inputs:
+      tot-score:
+        description: 'Общее качество'
+        required: true
+        type: number
+
+jobs:
+  report:
+    name: 'Кибердядька докладывает'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Получение ветви отчёта'
+        uses: actions/checkout@v2
+        with:
+          ref: 'cyber-under-tutor'
+      - name: 'Получение отчёта'
+        uses: actions/download-artifact@v2
+        with:
+          name: analyzis-results
+          path: .
+      - name: 'Публикация отчёта'
+        run: |
+          pip3 install anybadge
+          git config user.email "CYBER@DRDbKA.github.com"
+          git config user.name "Кибердядька"
+
+          anybadge -l 'Кибердядька' -d 1 -v $(bc<<< scale=0; ${{inputs.tot-score}}/0.01) -s '%' -f quiality-check.svg 0=red 50=orange 75=yellow 1000=green
+          git add quality-check.*
+
+          git commit -m "Кибердядька сообщает"
+          git push

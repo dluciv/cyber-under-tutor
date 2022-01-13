@@ -1,0 +1,25 @@
+name: 'Анализ и отчёт'
+on:
+  workflow_call:
+    inputs:
+      lines-per-msg:
+        description: 'На сколько строк разрешено одно сообщение'
+        required: true
+        type: number
+        default: 200
+    outputs:
+      tot-score:
+        description: 'Качество кода'
+        value: ${{ jobs.analyze.outputs.check-tot-score }}
+
+jobs:
+  analyze:
+    name: 'Оценка'
+    uses: dluciv/cyber-under-tutor/.github/workflows/cut-analyze.yml@main
+    with:
+      lines-per-msg: 200
+  report:
+    needs:
+      - analyze
+    name: 'Отчёт'
+    uses: dluciv/cyber-under-tutor/.github/workflows/cut-report.yml@main

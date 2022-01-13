@@ -1,4 +1,4 @@
-name: 'Отчёт и бэйдж Кибердядьки'
+name: 'Проверка Кибердядьки'
 on:
   workflow_call:
     inputs:
@@ -10,16 +10,17 @@ on:
     outputs:
       tot-msgs:
         description: 'Сколько получено сообщений'
-        value: ${{ jobs.check-and-report.outputs.check-tot-msgs }}
+        value: ${{ jobs.analyze.outputs.check-tot-msgs }}
       tot-lines:
         description: 'Сколько проверено строк'
-        value: ${{ jobs.check-and-report.outputs.check-tot-lines }}
+        value: ${{ jobs.analyze.outputs.check-tot-lines }}
       tot-score:
         description: 'Качество кода'
-        value: ${{ jobs.check-and-report.outputs.check-tot-score }}
+        value: ${{ jobs.analyze.outputs.check-tot-score }}
+
 jobs:
-  check-and-report:
-    name: 'Кибердядька докладывает'
+  analyze:
+    name: 'Кибердядька проверяет'
     runs-on: ubuntu-latest
     outputs:
       check-tot-msgs: ${{ steps.cybercheck.outputs.tot-msgs }}
@@ -29,24 +30,14 @@ jobs:
       - uses: actions/checkout@v2
         name: 'Получение репозитория'
       - id: cybercheck
-        name: 'Проверка'
+        name: 'Проверка Кибердядькой'
         uses: dluciv/cyber-under-tutor@main
         with:
           lines-per-msg: ${{ inputs.lines-per-msg }}
       - name: 'Сохранение отчёта'
-        run: |
-          mv quality-check.* $HOME
-      - name: 'Получение ветви отчёта'
-        uses: actions/checkout@v2
+        uses: actions/upload-artifact@v2
         with:
-          ref: 'cyber-under-tutor'
-      - name: 'Публикация отчёта'
-        run: |
-          git config user.email "CYBER@DRDbKA.github.com"
-          git config user.name "Кибердядька"
-
-          mv $HOME/quality-check.* .
-
-          git add quality-check.*
-          git commit -m "Кибердядька сообщает"
-          git push
+          name: analyzis-results
+          path: |
+            quality-check.*
+          retention-days: 1
