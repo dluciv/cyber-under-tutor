@@ -61,11 +61,10 @@ jobs:
           echo "::notice ::Score: ${SCORE_PERCENT}%"
           anybadge -l 'Кибердядька' -d 1 -v $SCORE_PERCENT -s '%' -o -f quality-check.svg -u 0=red 50=orange 75=yellow 100=green
 
-          git add quality-check.*
-
           if git diff --quiet; then
             echo "::notice ::No changes"
           else
+            git add quality-check.*
             git commit -m "Кибердядька сообщает"
             git push
           fi
